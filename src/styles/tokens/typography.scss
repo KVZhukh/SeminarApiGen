@@ -1,0 +1,43 @@
+.bodyNA {
+    @include bodyNATypography;
+}
+
+.buttonMd {
+    @include buttonMdTypography;
+}
+
+.buttonBold {
+    @include buttonBoldTypography;
+}
+
+.micro {
+    @include microTypography;
+}
+
+.small {
+    @include smallTypography;
+}
+
+.body {
+    @include bodyTypography;
+}
+
+.h5 {
+    @include h5Typography;
+}
+
+.h4 {
+    @include h4Typography;
+}
+
+.h3 {
+    @include h3Typography;
+}
+
+.h2 {
+    @include h2Typography;
+}
+
+.h1 {
+    @include h1Typography;
+}

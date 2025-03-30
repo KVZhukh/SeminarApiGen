@@ -1,0 +1,256 @@
+@use 'sass:map';
+@use 'sass:list';
+@import './breakpoints';
+@mixin mqMin($breakpoint) {
+    @media (min-width: #{$breakpoint}px) {
+        @content;
+    }
+}
+@mixin mq($breakpoint) {
+    @media (max-width: #{$breakpoint - 1}px) {
+        @content;
+    }
+}
+@mixin bodyNATypography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+@mixin buttonMdTypography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+
+    @media (width <= 1440px) {
+        font-size: calc(0.875rem + ((100vw - 48rem) / (90 - 48)) * (1 - 0.875));
+    }
+
+    @media (width <= 768px) {
+        font-size: 0.875rem;
+        line-height: 1.42;
+    }
+}
+@mixin buttonBoldTypography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+
+    @media (width <= 1440px) {
+        font-size: calc(0.875rem + ((100vw - 48rem) / (90 - 48)) * (1 - 0.875));
+    }
+
+    @media (width <= 768px) {
+        font-weight: 500;
+        font-size: 0.875rem;
+        line-height: 1.42;
+    }
+}
+@mixin microTypography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    line-height: 1.16;
+
+    @media (width <= 1440px) {
+        font-size: calc(0.625rem + ((100vw - 48rem) / (90 - 48)) * (0.75 - 0.625));
+    }
+
+    @media (width <= 768px) {
+        font-size: 0.625rem;
+        line-height: 1.4;
+    }
+}
+@mixin smallTypography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.42;
+
+    @media (width <= 1440px) {
+        font-size: calc(0.75rem + ((100vw - 48rem) / (90 - 48)) * (0.875 - 0.75));
+    }
+
+    @media (width <= 768px) {
+        font-size: 0.75rem;
+        line-height: 1.33;
+    }
+}
+@mixin bodyTypography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    @media (width <= 1440px) {
+        font-size: calc(0.875rem + ((100vw - 48rem) / (90 - 48)) * (1 - 0.875));
+    }
+
+    @media (width <= 768px) {
+        font-size: 0.875rem;
+        line-height: 1.28;
+    }
+}
+@mixin h5Typography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    line-height: 1.25;
+}
+@mixin h4Typography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    line-height: 1.2;
+
+    @media (width <= 1440px) {
+        font-size: calc(0.875rem + ((100vw - 48rem) / (90 - 48)) * (1.25 - 0.875));
+    }
+
+    @media (width <= 768px) {
+        font-size: 0.875rem;
+        line-height: 1.14;
+    }
+}
+@mixin h3Typography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    line-height: 1.16;
+
+    @media (width <= 1440px) {
+        font-size: calc(1rem + ((100vw - 48rem) / (90 - 48)) * (1.5 - 1));
+    }
+
+    @media (width <= 768px) {
+        font-size: 1rem;
+        line-height: 1.25;
+    }
+}
+@mixin h2Typography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 900;
+    font-size: 2rem;
+    line-height: 1.18;
+
+    @media (width <= 1440px) {
+        font-size: calc(1.125rem + ((100vw - 48rem) / (90 - 48)) * (2 - 1.125));
+    }
+
+    @media (width <= 768px) {
+        font-size: 1.125rem;
+        line-height: 1.22;
+    }
+}
+@mixin h1Typography {
+    font-family: 'Sana Sans Alt', sans-serif;
+    font-weight: 900;
+    font-size: 2.5rem;
+    line-height: 1.1;
+
+    @media (width <= 1440px) {
+        font-size: calc(1.25rem + ((100vw - 48rem) / (90 - 48)) * (2.5 - 1.25));
+    }
+
+    @media (width <= 768px) {
+        font-size: 1.25rem;
+        line-height: 1.2;
+    }
+}
+@mixin getProperty($name, $value) {
+    @if $value {
+        #{$name}: $value;
+    }
+}
+@function defaultPropertyFn($property) {
+    @return $property;
+}
+@mixin cssProperty($propertyName, $propertyValue, $fn: defaultPropertyFn) {
+    @if type-of($propertyValue) == 'map' {
+        @each $size, $value in $propertyValue {
+            @if $size == $defaultBreakpoint {
+                @include getProperty($propertyName, call(get-function($fn), $value));
+            }
+
+            @if $size != $defaultBreakpoint {
+                @include mq(map-get($breakpointList, $size)) {
+                    @include getProperty($propertyName, call(get-function($fn), $value));
+                }
+            }
+        }
+    } @else {
+        @include getProperty($propertyName, call(get-function($fn), $propertyValue));
+    }
+}
+@function gridLayoutCellFn($property) {
+    @if type-of($property) == 'number' {
+        @if unit($property) == 'px' {
+            @return $property;
+        } @else {
+            @return repeat($property, 1fr);
+        }
+    }
+    @if type-of($property) == 'list' {
+        @return list.join($property, (), $separator: space);
+    }
+    @if type-of($property) == 'string' {
+        @return $property;
+    }
+    @return null;
+}
+@function layoutGapFn($property) {
+    @if type-of($property) == 'string' {
+        @return $property;
+    }
+    @if type-of($property) == 'list' and length($property) == 2 {
+        @return list.join($property, (), $separator: space);
+    }
+    @return null;
+}
+@function gridLayoutItemCellFn($property) {
+    @if type-of($property) == 'list' and length($property) == 2 {
+        @return #{list.nth($property, 1)} / #{list.nth($property, 2)};
+    }
+
+    @if $property {
+        @return #{span $property};
+    }
+
+    @return null;
+}
+@mixin gridLayout($cols: 12, $gap: gs(3)) {
+    display: grid;
+    @include cssProperty('grid-template-columns', $cols, gridLayoutCellFn);
+    @include cssProperty('gap', $gap, layoutGapFn);
+}
+@mixin gridLayoutRows($rows) {
+    @include cssProperty('grid-template-rows', $rows, gridLayoutCellFn);
+}
+@mixin alignmentLayout($justify, $align) {
+    @include cssProperty('justify-items', $justify);
+    @include cssProperty('align-items', $align);
+}
+@mixin gridLayoutItem($col: false, $row: false) {
+    @include cssProperty('grid-column', $col, gridLayoutItemCellFn);
+    @include cssProperty('grid-row', $row, gridLayoutItemCellFn);
+}
+@mixin alignmentLayoutItem($justify: false, $align: false) {
+    @include cssProperty('justify-self', $justify);
+    @include cssProperty('align-self', $align);
+}
+@mixin orderLayoutItem($order) {
+    @include cssProperty('order', $order);
+}
+@mixin flexLayout($gap) {
+    display: flex;
+    @include cssProperty('gap', $gap, layoutGapFn);
+}
+@mixin section($mb: false, $padding: false, $bg: false) {
+    @include cssProperty('margin-bottom', $mb);
+    @include cssProperty('padding', $padding);
+    @include cssProperty('background-color', $bg);
+}

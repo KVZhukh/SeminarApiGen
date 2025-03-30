@@ -1,0 +1,4 @@
+package-lock.json
+.helm/*
+.husky/*
+src/lib/chatbot/styles.css

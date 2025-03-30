@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Sana Sans Alt';
+    src:
+        url('/fonts/SanaSansAlt/SanaSansAlt-Book.woff2') format('woff2'),
+        url('/fonts/SanaSansAlt/SanaSansAlt-Book.woff') format('woff');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sana Sans Alt';
+    src:
+        url('/fonts/SanaSansAlt/SanaSansAlt-Medium.woff2') format('woff2'),
+        url('/fonts/SanaSansAlt/SanaSansAlt-Medium.woff') format('woff');
+    font-display: swap;
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Sana Sans Alt';
+    src:
+        url('/fonts/SanaSansAlt/SanaSansAlt-Black.woff2') format('woff2'),
+        url('/fonts/SanaSansAlt/SanaSansAlt-Black.woff') format('woff');
+    font-display: swap;
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: Raleway;
+    src:
+        url('/fonts/Raleway/Raleway.woff2') format('woff2'),
+        url('/fonts/Raleway/Raleway.woff') format('woff');
+    font-display: swap;
+}

@@ -1,0 +1,31 @@
+body {
+    @include bodyTypography;
+
+    color: $cl-textMain;
+    height: 100%;
+    overflow-anchor: none;
+}
+
+a,
+button {
+    &:focus-visible {
+        outline: 2px solid $cl-brand;
+    }
+}
+
+* {
+    &::-webkit-scrollbar-thumb {
+        background-color: $cl-gray600;
+        border-radius: gs(4);
+    }
+
+    &::-webkit-scrollbar {
+        max-width: gs(1, true);
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: $cl-white;
+        border-radius: gs(4);
+        margin: gs(3, true) 0;
+    }
+}

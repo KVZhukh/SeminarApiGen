@@ -1,0 +1,11 @@
+pnpm run lint
+pnpm run lint:scss
+
+# format only staged (index) files
+prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown --ignore-path .prettierignore
+
+# update already staged (index) files
+git update-index --again
+
+pnpm run test
+pnpm run tsc --noEmit

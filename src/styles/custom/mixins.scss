@@ -1,0 +1,26 @@
+@mixin hoverMedia {
+    @media (hover: hover) {
+        @content;
+    }
+}
+
+@mixin hover {
+    @include hoverMedia {
+        &:hover {
+            &:not(&:disabled) {
+                @content;
+            }
+        }
+    }
+}
+
+@mixin scrollbar {
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+}
+
+@mixin ptTypography {
+    font-family: 'PT Sans', sans-serif;
+    font-size: calc(98%);
+}

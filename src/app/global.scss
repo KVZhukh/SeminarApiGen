@@ -1,0 +1,9 @@
+@layer normalize, default, helper, component;
+
+@import 'normalize.css' layer(normalize);
+
+@layer default {
+    @import '../styles/tokens/base';
+    @import '../styles/base/index';
+    @import '../styles/base/fonts';
+}
